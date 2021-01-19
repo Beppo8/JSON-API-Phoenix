@@ -6,6 +6,7 @@ defmodule Teacher.Auth.User do
     field :email, :string
     field :encrypted_password, :string
     field :username, :string
+    has_one :api_key, Teacher.Auth.ApiKey
 
     timestamps()
   end

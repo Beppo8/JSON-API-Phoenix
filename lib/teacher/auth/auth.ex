@@ -6,7 +6,26 @@ defmodule Teacher.Auth do
   import Ecto.Query, warn: false
   alias Teacher.Repo
 
-  alias Teacher.Auth.User
+  alias Teacher.Auth.{ApiKey, User}
+
+  def generate_user_api_key(%User{} = user) do
+    key = 10
+      |> :crypto.strong_rand_bytes()
+      |> Base.encode16()
+    user = preload_api_key(user)
+    case user.api_key do
+      nil ->
+        %ApiKey{user_id: user.id}
+      api_key ->
+        api_key
+    end
+    |> ApiKey.changeset(%{key: key})
+    |> Repo.insert_or_update()
+  end
+
+  def preload_api_key(user) do
+    Repo.preload(user, :api_key)
+  end
 
   @doc """
   Returns the list of users.

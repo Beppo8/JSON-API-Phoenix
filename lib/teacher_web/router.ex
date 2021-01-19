@@ -22,7 +22,9 @@ defmodule TeacherWeb.Router do
     resources "/registrations", RegistrationController, only: [:new, :create]
 
     resources "/albums", AlbumController
-    resources "/users", UserController, only: [:show]
+    resources "/users", UserController, only: [:show] do
+      resources "/api-keys", ApiKeyController, only: [:create]
+    end
     get "/", PageController, :index
   end
 
