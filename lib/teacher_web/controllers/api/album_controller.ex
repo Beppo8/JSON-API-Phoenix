@@ -3,8 +3,11 @@ defmodule TeacherWeb.Api.AlbumController do
 
   alias Teacher.Recordings
 
-  def index(conn, _params) do
-    albums = Recordings.list_albums()
+  def index(conn, params) do
+    page_num = get_in(params, ["page", "number"])
+    page_size = get_in(params, ["page", "size"])
+
+    albums = Recordings.paginate_albums(%{page: page_num, page_size: page_size})
     render(conn, "index.json-api", data: albums)
   end
 
