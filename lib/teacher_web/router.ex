@@ -12,6 +12,7 @@ defmodule TeacherWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json-api"]
+    plug TeacherWeb.Plugs.ApiAuth
   end
 
   scope "/", TeacherWeb do

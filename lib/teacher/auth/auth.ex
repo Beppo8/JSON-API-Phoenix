@@ -8,6 +8,13 @@ defmodule Teacher.Auth do
 
   alias Teacher.Auth.{ApiKey, User}
 
+  def api_key_exists?(key) when is_nil(key), do: false
+  def api_key_exists?(key) do
+    qry = from api_key in ApiKey,
+          where: api_key.key == ^key
+    Repo.exists?(qry)
+  end
+
   def generate_user_api_key(%User{} = user) do
     key = 10
       |> :crypto.strong_rand_bytes()
