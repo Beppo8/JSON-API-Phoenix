@@ -3,6 +3,8 @@ defmodule TeacherWeb.ApiKeyController do
 
   alias Teacher.Auth
 
+  plug TeacherWeb.Plugs.CheckAuth
+
   def create(conn, _params) do
     user = conn.assigns[:current_user]
     case Auth.generate_user_api_key(user) do

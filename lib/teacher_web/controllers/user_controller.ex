@@ -3,7 +3,9 @@ defmodule TeacherWeb.UserController do
 
   alias Teacher.Auth
 
-  def show(conn, %{"id" => id}) do
+  plug TeacherWeb.Plugs.CheckAuth
+
+  def show(conn, %{"user_id" => id}) do
     user = id
       |> Auth.get_user!()
       |> Auth.preload_api_key()
