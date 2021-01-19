@@ -1,21 +1,16 @@
 defmodule TeacherWeb.Api.AlbumView do
   use TeacherWeb, :view
+  use JaSeriealizer.PhoenixView
 
-  def render("index.json", %{albums: albums}) do
-    %{data: render_many(albums, TeacherWeb.Api.AlbumView, "album.json")}
-  end
+  attributes [:title, :aritst, :year, :preview]
 
-  def render("show.json", %{album: album}) do
-    %{data: render_one(album, TeacherWeb.Api.AlbumView, "Album.json")}
-  end
+  has_one :category,
+    serializer: TeacherWeb.Api.CategoryView
+    include: true,
+    identifiers: :when_included
 
-  def render("album.json", %{album: album}) do
-    %{
-      id: album.id,
-      artist: album.artist,
-      title: album.title,
-      category: render_one(album.category, TeacherWeb.Api.CategoryView, "category.json")
-    }
-  end
+    def preview(album, _conn) do
+      String.slice(album.summary, 0..100) <> ""
+    end
 
 end

@@ -1,11 +1,7 @@
 defmodule TeacherWeb.Api.CategoryView do
   use TeacherWeb, :view
+  use JaSerializer.PhoenixView
 
-  def render("category.json", %{category: category}) do
-    %{
-      id: category.id,
-      name: category.name
-    }
-  end
+  attributes [:name]
 
 end
