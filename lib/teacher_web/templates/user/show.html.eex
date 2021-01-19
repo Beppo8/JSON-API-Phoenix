@@ -1,2 +1,10 @@
 <h1>Profile Page</h1>
 
+<%= if @user.api_key do %>
+    Your API key: <%= @user.api_key.key %>
+<%= else %>
+    Create an API key
+<%= end %>
+<%= button("Generate key",
+ to: Routes.user_api_key_path(@conn, :create, @user),
+ method: "post") %>
