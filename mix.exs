@@ -45,6 +45,8 @@ defmodule Teacher.MixProject do
       {:comeonin, "~> 4.1"},
       {:httpoison, "~> 1.5"},
       {:bcrypt_elixir, "~> 1.1"},
+      {:ja_serializer, "~> 0.16.0"},
+      {:poison, "~> 4.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
