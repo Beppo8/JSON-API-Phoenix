@@ -13,7 +13,8 @@ defmodule TeacherWeb.Api.AlbumView do
     %{
       id: album.id,
       artist: album.artist,
-      title: album.title
+      title: album.title,
+      category: render_one(album.category, TeacherWeb.Api.CategoryView, "category.json")
     }
   end
 
